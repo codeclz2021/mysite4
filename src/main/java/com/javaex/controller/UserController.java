@@ -8,20 +8,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.javaex.dao.UserDao;
+import com.javaex.service.UserService;
 import com.javaex.vo.UserVo;
 
 @Controller
 public class UserController {
 	
 	@Autowired
-	private UserDao userDao;
+	private UserService userService;
+	
 
 	//로그인폼
 	@RequestMapping(value="/user/loginForm", method={RequestMethod.GET, RequestMethod.POST})
 	public String loginForm() {
 		System.out.println("[UserController.loginForm()]");
-		
 		return "user/loginForm";
 	}
 	
@@ -30,7 +30,7 @@ public class UserController {
 	public String login(@ModelAttribute UserVo userVo, HttpSession session) {
 		System.out.println("[UserController.login()]");
 		
-		UserVo authUser = userDao.selectUser(userVo);
+		UserVo authUser = userService.login(userVo);
 		System.out.println(authUser);
 		
 		if(authUser != null) { //로그인성공
