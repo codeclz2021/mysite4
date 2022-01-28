@@ -23,9 +23,8 @@ public class GuestbookDao {
 	
 	
 	//방명록 글1개 가져오기
-	public GuestbookVo selectGuestbook(int no) {
-		System.out.println("guestbookDao/selectGuestbook");
-		
+	public GuestbookVo selectGuest(int no) {
+		System.out.println("guestbookDao/selectGuest");
 		return sqlSession.selectOne("guestbook.selectByNo", no);
 	}
 	
@@ -37,11 +36,10 @@ public class GuestbookDao {
 		return sqlSession.insert("guestbook.insert", guestbookVo);	
 	}	
 
-
-	//방명록 글 저장(selectKey)
+ 
+	//방명록 글 저장(selectKey)   //리턴 성공한 갯수
 	public int insertSelectKey(GuestbookVo guestbookVo){
 		System.out.println("guestbookDao/insertSelectKey");
-		System.out.println(guestbookVo.toString());
 		
 		return sqlSession.insert("guestbook.insertSelectKey", guestbookVo);	
 	}
