@@ -69,7 +69,7 @@
 								</tr>
 								<tr class="button-area">
 									<td colspan="4" class="text-center">
-										<button id="btnSubmit" type="submit">등록</button>
+										<button id="btnSubmit2" type="submit">등록</button>
 									</td>
 								</tr>
 							</tbody>
@@ -138,7 +138,7 @@
 
 	});
 
-	//저장버튼이 클릭될때
+	//저장버튼이 클릭될때 - 파라미터 방식 요청
 	$("#btnSubmit").on("click", function(){
 		console.log("클릭");
 		
@@ -155,7 +155,7 @@
 		};
 		console.log(guestbookVo); //확인
 		
-		//요청
+		//요청 파라미디터 방식
 		$.ajax({
 			
 			url : "${pageContext.request.contextPath }/api/guestbook/write",		
@@ -181,6 +181,56 @@
 		});
 		
 	});
+	
+	
+	
+	//저장버튼이 클릭될때 - json 방식 요청	
+	$("#btnSubmit2").on("click", function(){
+		console.log("json 전송클릭");
+		
+		//폼에 데이터를 모아야한다
+		var name = $("#input-uname").val();  //이름
+		var password = $("#input-pass").val(); //패스워드
+		var content = $("[name='content']").val() //컨텐츠
+		
+		//객체 만들기
+		var guestbookVo = {
+			name: name,
+			password: password,
+			content: content
+		};
+		console.log(guestbookVo); //확인
+		
+		//요청 파라미디터 방식
+		$.ajax({
+			
+			url : "${pageContext.request.contextPath }/api/guestbook/write2",		
+			type : "post",
+			contentType : "application/json",
+			data : JSON.stringify(guestbookVo), //자바스크립트 객체를 json형식으로 변경
+  
+			dataType : "json",
+			success : function(guestbookVo){
+				/*성공시 처리해야될 코드 작성*/
+				
+				console.log(guestbookVo);
+				render(guestbookVo, "up");
+				
+				//입력화면 초기화
+				$("#input-uname").val("");  
+				$("#input-pass").val("");
+				$("[name='content']").val("");
+				
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+		
+	});
+	
+	
+	
 	
 	//삭제팝업 버튼을 눌렀을때
 	$("#listArea").on("click", ".btnDelPop", function(){

@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javaex.service.GuestbookService;
@@ -46,6 +48,19 @@ public class ApiGuestbookController {
 		System.out.println(gVo);
 		return gVo;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/write2")
+	public GuestbookVo write2(@RequestBody GuestbookVo guestbookVo) {
+		System.out.println("ApiGuestbookControlle.write2()");
+		System.out.println(guestbookVo);
+		
+		//저장하고 저장된값 리턴
+		GuestbookVo gVo = guestbookService.addGuestResultVo(guestbookVo);
+		System.out.println(gVo);
+		return gVo;
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping("/remove")
