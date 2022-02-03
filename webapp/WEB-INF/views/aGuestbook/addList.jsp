@@ -113,9 +113,8 @@
       <div class="modal-body">
        
         비밀번호:
-      	<input type="password" name="" value="">
-        
-        
+      	<input id="modalPassword" type="password" name="password" value=""><br>
+        <input id="modalNo" type="text" name="no" value="">
         
       </div>
       <div class="modal-footer">
@@ -184,13 +183,17 @@
 	
 	//삭제팝업 버튼을 눌렀을때
 	$("#listArea").on("click", ".btnDelPop", function(){
+		//데이타수집
 		var $this = $(this);
+		var no = $this.data("no");
+		console.log(no);
 		
-		console.log($this);
+		//초기화
+		$("#modalPassword").val("");
+		$("#modalNo").val(no);
+		
 		
 		$("#delModal").modal('show');
-		
-		
 		
 	});
 	
@@ -238,7 +241,7 @@
 		str += '		<td>' + guestbookVo.no + '</td>';
 		str += '		<td>' + guestbookVo.name + '</td>';
 		str += '		<td>' + guestbookVo.regDate + '</td>';
-		str += '		<td><button class="btnDelPop" type="button" '+ guestbookVo.no +'  >삭제</button></td>';
+		str += '		<td><button class="btnDelPop" type="button" data-no="'+guestbookVo.no+'">삭제</button></td>';
 		str += '	</tr>';
 		str += '	<tr>';
 		str += '		<td colspan="4" class="text-left">' + guestbookVo.content
