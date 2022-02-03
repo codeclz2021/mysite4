@@ -6,11 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="${pageContext.request.contextPath }/assets/bootstrap/css/bootstrap.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath }/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath }/assets/css/guestbook.css" rel="stylesheet" type="text/css">
 
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery-1.12.4.js"></script>
-
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/bootstrap/js/bootstrap.js"></script>
 
 </head>
 
@@ -98,10 +99,38 @@
 	</div>
 	<!-- //wrap -->
 
+
+<!-- --------------------------------------------------------------------------------------------------- -->
+<!-- 삭제 모달창 -->
+
+<div id="delModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">비밀번호 입력 모달창</h4>
+      </div>
+      <div class="modal-body">
+       
+        비밀번호:
+      	<input type="password" name="" value="">
+        
+        
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-danger">삭제</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- //삭제 모달창 -->
 </body>
 
 <script type="text/javascript">
-	/* 로딩되기전 에 요청 */
+	/* 로딩되기전에  돔이 완성되었을때*/
 	$(document).ready(function() {
 
 		/* 리스트 그리기 */
@@ -134,7 +163,7 @@
 			//contentType : "application/json",
 			data : guestbookVo,   //{name: name, password: password, content: content}
   
-			//dataType : "json",
+			dataType : "json",
 			success : function(guestbookVo){
 				/*성공시 처리해야될 코드 작성*/
 				console.log(guestbookVo);
@@ -150,7 +179,16 @@
 				console.error(status + " : " + error);
 			}
 		});
-
+		
+	});
+	
+	//삭제팝업 버튼을 눌렀을때
+	$("#listArea").on("click", ".btnDelPop", function(){
+		var $this = $(this);
+		
+		console.log($this);
+		
+		$("#delModal").modal('show');
 		
 		
 		
@@ -200,7 +238,7 @@
 		str += '		<td>' + guestbookVo.no + '</td>';
 		str += '		<td>' + guestbookVo.name + '</td>';
 		str += '		<td>' + guestbookVo.regDate + '</td>';
-		str += '		<td><a href="${pageContext.request.contextPath }/guestbook/deleteForm?no=${guestVo.no}">[삭제]</a></td>';
+		str += '		<td><button class="btnDelPop" type="button" '+ guestbookVo.no +'  >삭제</button></td>';
 		str += '	</tr>';
 		str += '	<tr>';
 		str += '		<td colspan="4" class="text-left">' + guestbookVo.content
