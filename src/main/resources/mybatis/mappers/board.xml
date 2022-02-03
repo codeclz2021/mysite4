@@ -117,7 +117,7 @@
 				   b.content
 		     from board b, users u
 		     where b.user_no = u.no
-			 and b.no = #{no};
+			 and b.no = #{no}
 		]]>
 	</select>
 

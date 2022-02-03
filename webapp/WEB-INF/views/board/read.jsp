@@ -19,7 +19,7 @@
 		<!-- //header -->
 		<!-- //nav -->
 
-		<c:import url="/WEB-INF/views/include/boardAside.jsp"></c:import>
+		<c:import url="/WEB-INF/views/include/asideBoard.jsp"></c:import>
 		<!-- //aside -->
 
 

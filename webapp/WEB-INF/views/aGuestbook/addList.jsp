@@ -227,16 +227,13 @@
 				console.log(state);
 				
 				if(state==='success'){
-					/*성공시 처리해야될 코드 작성*/
-					
+					//   해당 테이블html 삭제	
+					$("#t"+no).remove();
 					//   모달창 닫기
 					$("#delModal").modal('hide');
-				
-					//   해당 테이블html 삭제	
-					
-					
 				}else {
-					
+					$("#delModal").modal('hide');
+					alert("비밀번호를 확인하세요");
 				}
 				
 				
@@ -282,7 +279,7 @@
 	function render(guestbookVo, updown) {
 
 		var str = '';
-		str += '<table class="guestRead">';
+		str += '<table id="t' + guestbookVo.no + '" class="guestRead">';
 		str += '	<colgroup>';
 		str += '		<col style="width: 10%;">';
 		str += '		<col style="width: 40%;">';
