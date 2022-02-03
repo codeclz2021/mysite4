@@ -119,7 +119,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-        <button type="button" class="btn btn-danger">삭제</button>
+        <button id="modalBtnDel" type="button" class="btn btn-danger">삭제</button>
+        
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -195,6 +196,57 @@
 		
 		$("#delModal").modal('show');
 		
+	});
+	
+	//모달창의 삭제버튼을 클릭했을때
+	$("#modalBtnDel").on("click", function(){
+		console.log("모달창 삭제버튼 클릭");
+		
+		//데이타 수집
+		var no = $("#modalNo").val();
+		var pw = $("#modalPassword").val();
+		
+		var delInfoVo = {
+			no: no,
+			password: pw
+		}
+		
+		console.log(delInfoVo);
+		
+		
+		//ajax 요청  no password
+		$.ajax({
+		
+			url : "${pageContext.request.contextPath }/api/guestbook/remove",		
+			type : "post",
+			//contentType : "application/json",
+			data : delInfoVo,
+
+			dataType : "json",
+			success : function(state){
+				console.log(state);
+				
+				if(state==='success'){
+					/*성공시 처리해야될 코드 작성*/
+					
+					//   모달창 닫기
+					$("#delModal").modal('hide');
+				
+					//   해당 테이블html 삭제	
+					
+					
+				}else {
+					
+				}
+				
+				
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+		
+
 	});
 	
 	
