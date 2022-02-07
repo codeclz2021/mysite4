@@ -23,12 +23,21 @@ public class BoardDao {
 		return sqlSession.selectList("board.selectList");
 	}
 
-	// 글전체 가져오기(검색기능 추가)
-	public List<BoardVo> selectList2(String keyword) {
-		System.out.println("boardDao/selectList2");
 
-		return sqlSession.selectList("board.selectList2", keyword);
+	// 글리스트 가져오기(리스트+페이징)
+	public List<BoardVo> selectList2(int startRnum, int endRnum) {
+		System.out.println("boardDao/selectList2");
+		System.out.println(startRnum + "," + endRnum);
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startRnum", startRnum);
+		map.put("endRnum", endRnum);
+		
+		List<BoardVo> boardList=sqlSession.selectList("board.selectList2", map);
+		return boardList;
 	}
+	
+	
 
 	// 글저장
 	public int insert(BoardVo boardVo) {
@@ -65,22 +74,13 @@ public class BoardDao {
 		return sqlSession.delete("board.delete", boardVo);
 	}
 
-	// 글전체 가져오기(페이징)
-	public List<BoardVo> selectList3(int startRnum, int endRnum, String keyword) {
-		System.out.println("boardDao/selectList3");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("startRnum", startRnum);
-		map.put("endRnum", endRnum);
-		map.put("keyword", keyword);
-		System.out.println(map.toString());
-		return sqlSession.selectList("board.selectList3", map);
-	}
-
-	// 글전체 count(페이징)
-	public int selectTotal(String keyword) {
+	//전체 글갯수 가져오기
+	public int selectTotal() {
 		System.out.println("boardDao/selectTotal");
-		return sqlSession.selectOne("board.selectTotal", keyword);
+		
+		return sqlSession.selectOne("board.totalCnt");
 	}
-
+	
+	
 	
 }

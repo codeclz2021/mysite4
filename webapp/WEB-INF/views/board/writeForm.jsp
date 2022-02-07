@@ -19,7 +19,9 @@
 		<!-- header / nav -->
 		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 
-		<!-- asideBoard -->
+		<!-- aside.jsp -->
+		<c:import url="/WEB-INF/views/include/asideBoard.jsp"></c:import>
+
 
 		<div id="content">
 

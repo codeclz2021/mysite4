@@ -20,14 +20,8 @@
 
 
 		<div id="container" class="clearfix">
-			<div id="aside">
-				<h2>게시판</h2>
-				<ul>
-					<li><a href="">일반게시판</a></li>
-					<li><a href="">댓글게시판</a></li>
-				</ul>
-			</div>
-			<!-- //aside -->
+			<!-- aside.jsp -->
+			<c:import url="/WEB-INF/views/include/asideBoard.jsp"></c:import>
 
 			<div id="content">
 
@@ -67,7 +61,7 @@
 								<c:forEach items="${boardList }" var="boardVo">
 									<tr>
 										<td>${boardVo.no }</td>
-										<td class="text-left"><a href="/mysite/board?action=read&no=${boardVo.no }">${boardVo.title }</a></td>
+										<td class="text-left"><a href="${pageContext.request.contextPath }/board/read?&no=${boardVo.no }">${boardVo.title }</a></td>
 										<td>${boardVo.userName }</td>
 										<td>${boardVo.hit }</td>
 										<td>${boardVo.regDate }</td>
@@ -100,7 +94,7 @@
 						</div>
 
 						<c:if test="${!empty authUser }">
-							<a id="btn_write" href="/mysite/board?action=writeForm">글쓰기</a>
+							<a id="btn_write" href="${pageContext.request.contextPath }/board/writeForm">글쓰기</a>
 						</c:if>
 
 					</div>
